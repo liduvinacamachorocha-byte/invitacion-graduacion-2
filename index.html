@@ -10,86 +10,108 @@
             padding: 0;
             background-color: #0c0c0c;
             font-family: 'Georgia', serif;
-            color: #333;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Contenedor principal tipo celular elegante */
         .invitation-container {
             width: 100%;
             max-width: 450px;
             background-color: #f7f5ef;
             min-height: 100vh;
             position: relative;
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
-            overflow: hidden;
+            box-shadow: 0 0 25px rgba(0,0,0,0.9);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* Reproductor de música flotante y elegante arriba */
+        /* Reproductor de música arriba */
         .music-bar {
             width: 100%;
             background: #1a2a3a;
             color: #fff;
-            padding: 10px;
+            padding: 8px;
             text-align: center;
             font-size: 13px;
             font-family: Arial, sans-serif;
             box-sizing: border-box;
-            z-index: 100;
+            z-index: 1000;
         }
 
         audio {
             width: 80%;
-            height: 30px;
-            margin-top: 5px;
+            height: 28px;
+            margin-top: 4px;
         }
 
-        /* Sección de la portada con el sobre */
-        .section {
+        /* Pantalla de la portada con el sobre */
+        #portada-screen {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
         }
 
-        .section img {
+        #portada-screen img {
             width: 100%;
             height: auto;
             display: block;
         }
 
-        /* Botón interactivo para abrir la invitación */
+        /* Botón animado */
         .open-btn {
             background-color: #c5a059;
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 14px 35px;
             font-size: 16px;
             font-weight: bold;
-            letter-spacing: 1px;
-            border-radius: 25px;
+            letter-spacing: 1.5px;
+            border-radius: 30px;
             cursor: pointer;
-            margin: 20px 0;
-            box-shadow: 0 4px 10px rgba(197, 160, 89, 0.4);
-            transition: 0.3s ease;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(197, 160, 89, 0.5);
+            transition: transform 0.2s ease, background-color 0.2s ease;
         }
 
-        .open-btn:hover {
-            background-color: #b08d4c;
-            transform: scale(1.05);
+        .open-btn:active {
+            transform: scale(0.95);
         }
 
-        /* Secciones secundarias que aparecen al abrir */
-        .content-hidden {
+        /* Contenido oculto que se desliza hacia arriba al abrir */
+        #contenido-screen {
             display: none;
             width: 100%;
             flex-direction: column;
             align-items: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        #contenido-screen.mostrar {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #contenido-screen img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Clase para animar la salida de la portada */
+        .esconder-portada {
+            transform: translateY(-100px);
+            opacity: 0;
+            position: absolute;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -97,7 +119,7 @@
 
     <div class="invitation-container">
         
-        <!-- Reproductor de música (La música empieza a sonar y se mantiene al navegar) -->
+        <!-- Barra de música -->
         <div class="music-bar">
             <span>🎵 Dale play a la música de fondo:</span>
             <audio controls loop>
@@ -106,36 +128,39 @@
             </audio>
         </div>
 
-        <!-- PORTADA: Imagen 1 (El sobre cerrado) -->
-        <div class="section" id="portada">
-            <img src="1.png" alt="Portada Invitación">
-            <!-- Botón interactivo tal como en el modelo de Canva -->
-            <button class="open-btn" onclick="abrirInvitacion()">ABRIR INVITACIÓN</button>
+        <!-- PORTADA CON EL SOBRE -->
+        <div id="portada-screen">
+            <img src="1.png" alt="Sobre de Invitación">
+            <button class="open-btn" onclick="animarApertura()">ABRIR INVITACIÓN</button>
         </div>
 
-        <!-- CONTENIDO COMPLETO QUE SE DESVELA AL HACER CLIC -->
-        <div class="content-hidden" id="invitacion-completa">
-            <img src="2.png" alt="Parte 2 Invitación">
-            <img src="3.png" alt="Parte 3 Invitación">
-            <!-- Puedes agregar más imágenes aquí si tienes más páginas: <img src="4.png" alt="Parte 4"> -->
+        <!-- CONTENIDO INTERACTIVO DE LA INVITACIÓN -->
+        <div id="contenido-screen">
+            <img src="2.png" alt="Detalle Graduación">
+            <img src="3.png" alt="Ubicación y Evento">
         </div>
 
     </div>
 
     <script>
-        function abrirInvitacion() {
-            // Oculta la portada y muestra el resto de la invitación al hacer clic
-            document.getElementById('portada').style.display = 'none';
-            document.getElementById('invitacion-completa').style.display = 'flex';
-            
-            // Intenta reproducir la música automáticamente al abrir
+        function animarApertura() {
+            // Reproduce la música
             var audio = document.querySelector('audio');
             audio.play().catch(function(error) {
-                console.log("Reproducción automática bloqueada por el navegador, usa el reproductor manual.");
+                console.log("Audio play bloqueado, requiere clic manual.");
             });
-            
-            // Hace scroll automático hacia arriba para ver el contenido nuevo
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Aplica efecto de deslizamiento hacia arriba en la portada
+            var portada = document.getElementById('portada-screen');
+            portada.classList.add('esconder-portada');
+
+            // Muestra con animación fluida el contenido completo tras una fracción de segundo
+            setTimeout(function() {
+                portada.style.display = 'none';
+                var contenido = document.getElementById('contenido-screen');
+                contenido.classList.add('mostrar');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 500);
         }
     </script>
 
