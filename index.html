@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación de Graduación</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 0px;
+        }
+        .audio-box {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Reproductor de música (puedes darle play cuando abras la invitación) -->
+        <div class="audio-box">
+            <p>🎵 Reproduce la música de fondo:</p>
+            <audio controls loop>
+                <source src="musica.mp3" type="audio/mpeg">
+                Tu navegador no soporta el elemento de audio.
+            </audio>
+        </div>
+
+        <!-- Aquí van tus imágenes de Canva (cambia 'imagen1.png' por el nombre real de tus archivos) -->
+        <img src="imagen1.png" alt="Parte 1 de la invitación">
+        <img src="imagen2.png" alt="Parte 2 de la invitación">
+    </div>
+
+</body>
+</html>
