@@ -3,61 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación de Graduación</title>
+    <title>Invitación de Graduación - Fernanda Flores</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-color: #000;
+            background-color: #111;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
+            min-height: 100vh;
             font-family: Arial, sans-serif;
         }
-        .container {
-            max-width: 450px;
+        .audio-container {
             width: 100%;
+            background-color: #1a2a3a;
+            padding: 10px 0;
             text-align: center;
-        }
-        .audio-box {
-            background-color: #1a1a1a;
-            padding: 10px;
-            width: 100%;
             position: sticky;
             top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            z-index: 9999;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
-        .audio-box p {
+        .audio-container p {
             color: #fff;
             margin: 0 0 5px 0;
-            font-size: 13px;
+            font-size: 14px;
         }
-        img {
+        audio {
+            width: 90%;
+            max-width: 400px;
+        }
+        .canva-embed {
+            position: relative;
             width: 100%;
-            height: auto;
-            display: block;
-            margin: 0;
+            max-width: 480px;
+            height: 85vh;
+            background: #000;
+        }
+        .canva-embed iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border: none;
             padding: 0;
+            margin: 0;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Reproductor de música fijo arriba -->
-        <div class="audio-box">
-            <p>🎵 Reproduce la música de tu invitación:</p>
-            <audio controls loop>
-                <source src="musica.mp3" type="audio/mpeg">
-                Tu navegador no soporta el elemento de audio.
-            </audio>
-        </div>
+    <!-- Reproductor de música fijo arriba -->
+    <div class="audio-container">
+        <p>🎵 Reproduce la música de fondo:</p>
+        <audio controls loop>
+            <source src="musica.mp3" type="audio/mpeg">
+            Tu navegador no soporta el elemento de audio.
+        </audio>
+    </div>
 
-        <!-- Tus imágenes en orden -->
-        <img src="1.png" alt="Invitación Parte 1">
-        <img src="2.png" alt="Invitación Parte 2">
+    <!-- Tu invitación interactiva de Canva -->
+    <div class="canva-embed">
+        <iframe src="https://www.canva.com/design/DAHXKCPx_6o/2cFukBTOyHMi6xzjJsfRSA/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>
     </div>
 
 </body>
