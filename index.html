@@ -8,67 +8,136 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #111;
+            background-color: #0c0c0c;
+            font-family: 'Georgia', serif;
+            color: #333;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+        }
+
+        /* Contenedor principal tipo celular elegante */
+        .invitation-container {
+            width: 100%;
+            max-width: 450px;
+            background-color: #f7f5ef;
             min-height: 100vh;
-            font-family: Arial, sans-serif;
-        }
-        .audio-container {
-            width: 100%;
-            background-color: #1a2a3a;
-            padding: 10px 0;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 9999;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-        .audio-container p {
-            color: #fff;
-            margin: 0 0 5px 0;
-            font-size: 14px;
-        }
-        audio {
-            width: 90%;
-            max-width: 400px;
-        }
-        .canva-embed {
             position: relative;
-            width: 100%;
-            max-width: 480px;
-            height: 85vh;
-            background: #000;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .canva-embed iframe {
-            position: absolute;
+
+        /* Reproductor de música flotante y elegante arriba */
+        .music-bar {
             width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
+            background: #1a2a3a;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-size: 13px;
+            font-family: Arial, sans-serif;
+            box-sizing: border-box;
+            z-index: 100;
+        }
+
+        audio {
+            width: 80%;
+            height: 30px;
+            margin-top: 5px;
+        }
+
+        /* Sección de la portada con el sobre */
+        .section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Botón interactivo para abrir la invitación */
+        .open-btn {
+            background-color: #c5a059;
+            color: white;
             border: none;
-            padding: 0;
-            margin: 0;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(197, 160, 89, 0.4);
+            transition: 0.3s ease;
+        }
+
+        .open-btn:hover {
+            background-color: #b08d4c;
+            transform: scale(1.05);
+        }
+
+        /* Secciones secundarias que aparecen al abrir */
+        .content-hidden {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
         }
     </style>
 </head>
 <body>
 
-    <!-- Reproductor de música fijo arriba -->
-    <div class="audio-container">
-        <p>🎵 Reproduce la música de fondo:</p>
-        <audio controls loop>
-            <source src="musica.mp3" type="audio/mpeg">
-            Tu navegador no soporta el elemento de audio.
-        </audio>
+    <div class="invitation-container">
+        
+        <!-- Reproductor de música (La música empieza a sonar y se mantiene al navegar) -->
+        <div class="music-bar">
+            <span>🎵 Dale play a la música de fondo:</span>
+            <audio controls loop>
+                <source src="musica.mp3" type="audio/mpeg">
+                Tu navegador no soporta audio.
+            </audio>
+        </div>
+
+        <!-- PORTADA: Imagen 1 (El sobre cerrado) -->
+        <div class="section" id="portada">
+            <img src="1.png" alt="Portada Invitación">
+            <!-- Botón interactivo tal como en el modelo de Canva -->
+            <button class="open-btn" onclick="abrirInvitacion()">ABRIR INVITACIÓN</button>
+        </div>
+
+        <!-- CONTENIDO COMPLETO QUE SE DESVELA AL HACER CLIC -->
+        <div class="content-hidden" id="invitacion-completa">
+            <img src="2.png" alt="Parte 2 Invitación">
+            <img src="3.png" alt="Parte 3 Invitación">
+            <!-- Puedes agregar más imágenes aquí si tienes más páginas: <img src="4.png" alt="Parte 4"> -->
+        </div>
+
     </div>
 
-    <!-- Tu invitación interactiva de Canva -->
-    <div class="canva-embed">
-        <iframe src="https://www.canva.com/design/DAHXKCPx_6o/2cFukBTOyHMi6xzjJsfRSA/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>
-    </div>
+    <script>
+        function abrirInvitacion() {
+            // Oculta la portada y muestra el resto de la invitación al hacer clic
+            document.getElementById('portada').style.display = 'none';
+            document.getElementById('invitacion-completa').style.display = 'flex';
+            
+            // Intenta reproducir la música automáticamente al abrir
+            var audio = document.querySelector('audio');
+            audio.play().catch(function(error) {
+                console.log("Reproducción automática bloqueada por el navegador, usa el reproductor manual.");
+            });
+            
+            // Hace scroll automático hacia arriba para ver el contenido nuevo
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 
 </body>
 </html>
