@@ -8,48 +8,56 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #1a1a1a;
+            background-color: #000;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             font-family: Arial, sans-serif;
-            color: #fff;
         }
         .container {
-            max-width: 600px;
+            max-width: 450px;
             width: 100%;
             text-align: center;
+        }
+        .audio-box {
+            background-color: #1a1a1a;
+            padding: 10px;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        .audio-box p {
+            color: #fff;
+            margin: 0 0 5px 0;
+            font-size: 13px;
         }
         img {
             width: 100%;
             height: auto;
             display: block;
             margin: 0;
-        }
-        .audio-box {
-            background-color: #2a2a2a;
-            padding: 15px;
-            margin: 0;
-            border-bottom: 2px solid #444;
+            padding: 0;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Reproductor de música de fondo -->
+        <!-- Reproductor de música fijo arriba -->
         <div class="audio-box">
-            <p style="margin: 0 0 10px 0; font-size: 14px;">🎵 Reproduce la música de tu invitación:</p>
+            <p>🎵 Reproduce la música de tu invitación:</p>
             <audio controls loop>
                 <source src="musica.mp3" type="audio/mpeg">
                 Tu navegador no soporta el elemento de audio.
             </audio>
         </div>
 
-        <!-- Tus imágenes reales -->
-        <img src="1.png" alt="Parte 1 de la invitación">
-        <img src="2.png" alt="Parte 2 de la invitación">
+        <!-- Tus imágenes en orden -->
+        <img src="1.png" alt="Invitación Parte 1">
+        <img src="2.png" alt="Invitación Parte 2">
     </div>
 
 </body>
