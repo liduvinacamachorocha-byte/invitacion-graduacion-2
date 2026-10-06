@@ -3,166 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación de Graduación - Fernanda Flores</title>
+    <title>Invitación de Graduación</title>
     <style>
-        body {
+        body, html {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
             background-color: #0c0c0c;
-            font-family: 'Georgia', serif;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden;
         }
-
-        .invitation-container {
+        .canva-container {
+            position: relative;
             width: 100%;
             max-width: 450px;
-            background-color: #f7f5ef;
-            min-height: 100vh;
-            position: relative;
-            box-shadow: 0 0 25px rgba(0,0,0,0.9);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            height: 100vh;
         }
-
-        /* Reproductor de música arriba */
-        .music-bar {
+        .canva-container iframe {
             width: 100%;
-            background: #1a2a3a;
-            color: #fff;
-            padding: 8px;
-            text-align: center;
-            font-size: 13px;
-            font-family: Arial, sans-serif;
-            box-sizing: border-box;
-            z-index: 1000;
-        }
-
-        audio {
-            width: 80%;
-            height: 28px;
-            margin-top: 4px;
-        }
-
-        /* Pantalla de la portada con el sobre */
-        #portada-screen {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
-        }
-
-        #portada-screen img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Botón animado */
-        .open-btn {
-            background-color: #c5a059;
-            color: white;
+            height: 100%;
             border: none;
-            padding: 14px 35px;
-            font-size: 16px;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-            border-radius: 30px;
-            cursor: pointer;
-            margin: 25px 0;
-            box-shadow: 0 5px 15px rgba(197, 160, 89, 0.5);
-            transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-
-        .open-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Contenido oculto que se desliza hacia arriba al abrir */
-        #contenido-screen {
-            display: none;
-            width: 100%;
-            flex-direction: column;
-            align-items: center;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        #contenido-screen.mostrar {
-            display: flex;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        #contenido-screen img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Clase para animar la salida de la portada */
-        .esconder-portada {
-            transform: translateY(-100px);
-            opacity: 0;
-            position: absolute;
-            pointer-events: none;
         }
     </style>
 </head>
 <body>
 
-    <div class="invitation-container">
-        
-        <!-- Barra de música -->
-        <div class="music-bar">
-            <span>🎵 Dale play a la música de fondo:</span>
-            <audio controls loop>
-                <source src="musica.mp3" type="audio/mpeg">
-                Tu navegador no soporta audio.
-            </audio>
-        </div>
+    <!-- Música de fondo oculta que se reproduce sola al entrar -->
+    <audio id="musicaFondo" src="musica.mp3" loop autoplay></audio>
 
-        <!-- PORTADA CON EL SOBRE -->
-        <div id="portada-screen">
-            <img src="1.png" alt="Sobre de Invitación">
-            <button class="open-btn" onclick="animarApertura()">ABRIR INVITACIÓN</button>
-        </div>
-
-        <!-- CONTENIDO INTERACTIVO DE LA INVITACIÓN -->
-        <div id="contenido-screen">
-            <img src="2.png" alt="Detalle Graduación">
-            <img src="3.png" alt="Ubicación y Evento">
-        </div>
-
+    <!-- Tu diseño interactivo de Canva (con el sobre, ubicación y botones) -->
+    <div class="canva-container">
+        <iframe src="https://www.canva.com/design/DAHXKCPx_6o/2cFukBTOyHMi6xzjJsfRSA/view?embed" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>
     </div>
 
     <script>
-        function animarApertura() {
-            // Reproduce la música
-            var audio = document.querySelector('audio');
-            audio.play().catch(function(error) {
-                console.log("Audio play bloqueado, requiere clic manual.");
-            });
-
-            // Aplica efecto de deslizamiento hacia arriba en la portada
-            var portada = document.getElementById('portada-screen');
-            portada.classList.add('esconder-portada');
-
-            // Muestra con animación fluida el contenido completo tras una fracción de segundo
-            setTimeout(function() {
-                portada.style.display = 'none';
-                var contenido = document.getElementById('contenido-screen');
-                contenido.classList.add('mostrar');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 500);
-        }
+        // Truco para asegurar que la música suene al primer toque o carga
+        document.addEventListener('click', function() {
+            var audio = document.getElementById('musicaFondo');
+            if (audio.paused) {
+                audio.play();
+            }
+        }, { once: true });
     </script>
-
 </body>
 </html>
